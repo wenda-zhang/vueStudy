@@ -19,26 +19,40 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, reactive, toRefs } from 'vue';
 
-export default defineComponent({
+export default ({
   name: 'HelloWorld',
   props: {
     msg: String,
   },
   setup() {
 
-    const girls = ref(["小红", "小黄", "小白"]);
-    const selectGirls = ref("");
-    const selectGirlFun = (index: number) => {
-      selectGirls.value = girls.value[index];
-    };
+    // const girls = ref(["小红", "小黄", "小白"]);
+    // const selectGirls = ref("");
+    // const selectGirlFun = (index: number) => {
+    //   selectGirls.value = girls.value[index];
+    // };
+
+    // return {
+    //   girls,
+    //   selectGirls,
+    //   selectGirlFun,
+    // };
+
+    const data = reactive({
+      girls: ["小红", "小黄", "小白"],
+      selectGirls: "",
+      selectGirlFun: (index: number) => {
+        data.selectGirls = data.girls[index]
+      }
+    })
+
+    const refData = toRefs(data);
 
     return {
-      girls,
-      selectGirls,
-      selectGirlFun,
-    };
+      ...refData
+    }
 
   }
 });
