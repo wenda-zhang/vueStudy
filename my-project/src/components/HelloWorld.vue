@@ -15,11 +15,15 @@
   <div v-if="selectGirls !== ''">
     恭喜您，选择了我们的【{{selectGirls}}】为您服务！
   </div>
+  <div>
+    {{title}}
+  </div>
+  <button @click="overSelect">点餐完毕</button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, toRefs } from 'vue';
+import { defineComponent, ref, reactive, toRefs, watch } from 'vue';
 
 export default ({
   name: 'HelloWorld',
@@ -50,8 +54,21 @@ export default ({
 
     const refData = toRefs(data);
 
+    const title = ref('红浪漫洗浴中心你懂的');
+
+    const overSelect = () => {
+      title.value = "点餐完成" + title.value;
+    }
+
+    watch(title, (newValue, oldValue) => {
+      console.log('新值' + newValue);
+      console.log('老值' + oldValue);
+    })
+
     return {
-      ...refData
+      ...refData,
+      title,
+      overSelect,
     }
 
   }
